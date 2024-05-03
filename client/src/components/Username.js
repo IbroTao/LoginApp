@@ -7,7 +7,7 @@ import styles from '../styles/Username.module.css'
 export default function Username() {
     return (
         <div className="container mx-auto">
-            <div className="flex h-screen">
+            <div className="flex justify-center items-center h-screen">
                 <div className={styles.glass}>
 
                     <div className="title flex flex-col items-center">
