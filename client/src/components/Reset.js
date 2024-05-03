@@ -26,7 +26,7 @@ export default function Reset() {
             <Toaster position="top-center" reverseOrder={false}></Toaster>
 
             <div className="flex justify-center items-center h-screen">
-                <div className={styles.glass}>
+                <div className={styles.glass} style={{width: '50%'}}>
 
                     <div className="title flex flex-col items-center">
                         <h4 className="text-5xl font-bold">Reset</h4>
@@ -40,7 +40,7 @@ export default function Reset() {
                             <input {...formik.getFieldProps('password')} className={styles.textbox} type="text" placeholder="New Password"/>
                             <input {...formik.getFieldProps('confirm_pwd')} className={styles.textbox} type="text" placeholder="Repeat Password"/>
 
-                            <button className={styles.btn} type="submit">Sign In</button>
+                            <button className={styles.btn} type="submit">Reset</button>
                         </div>
                     </form>
                 </div>
