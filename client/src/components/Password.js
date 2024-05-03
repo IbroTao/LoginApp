@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import avatar from '../assets/profile.png'
 import {Toaster} from "react-hot-toast"
 import {useFormik} from "formik"
-import {passwordValidate} from '../helpers/validate'
+import {passwordValidate} from '../helpers/validate.js'
 
 import styles from '../styles/Username.module.css'
 
@@ -11,7 +11,7 @@ export default function Password() {
 
     const formik = useFormik({
         initialValues: {
-            password: ''
+            password: 'admin@123'
         },
         validate: passwordValidate,
         validateOnBlur: false,
