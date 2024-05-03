@@ -8,6 +8,13 @@ export async function usernameValidate(values) {
 }
 
 /**validate password */
+export async function passwordValidate(values) {
+    const errors = passwordVerify({}, values);
+
+    return errors;
+}
+
+/**validate password */
 function passwordVerify(errors={}, values){
 
     const specialChars = /[`!@\$%^&*()_+-={}.,<>'"?~;\|]/
