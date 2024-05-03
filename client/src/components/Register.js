@@ -40,16 +40,22 @@ export default function Password() {
 
                     <form className="py-1" onSubmit={formik.handleSubmit}>
                         <div className="profile flex justify-center py-4">
-                            <img src={avatar} className={styles.profile_img} alt="avatar"></img>
+                            <label htmlFor="">
+                                <img src={avatar} className={styles.profile_img} alt="avatar"></img>
+                            </label>
+
+                            <input type="file" id="profile" name="profile"/>
                         </div>
 
                         <div className="textbox flex flex-col items-center gap-6 ">
+                            <input {...formik.getFieldProps('email')} className={styles.textbox} type="text" placeholder="Email*"/>
+                            <input {...formik.getFieldProps('username')} className={styles.textbox} type="text" placeholder="Username*"/>
                             <input {...formik.getFieldProps('password')} className={styles.textbox} type="text" placeholder="Password"/>
-                            <button className={styles.btn} type="submit">Sign In</button>
+                            <button className={styles.btn} type="submit">Register</button>
                         </div>
 
                         <div className="text-center py-4">
-                            <span className="text-gray-500 ">Forgot Password? <Link className='text-red-500' to ="/recovery">Recover Now</Link></span>
+                            <span className="text-gray-500 ">Already Register? <Link className='text-red-500' to ="/">Login Now</Link></span>
                         </div>
 
                     </form>
