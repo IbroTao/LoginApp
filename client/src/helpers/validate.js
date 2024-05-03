@@ -14,6 +14,11 @@ export async function passwordValidate(values) {
     return errors;
 }
 
+/**validate reset password */
+export async function  resetPasswordValidation(values) {
+    
+}
+
 /**validate password */
 function passwordVerify(errors={}, values){
 
