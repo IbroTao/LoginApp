@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import avatar from '../assets/profile.png'
 import {Toaster} from "react-hot-toast"
@@ -8,6 +8,8 @@ import {passwordValidate} from '../helpers/validate.js'
 import styles from '../styles/Username.module.css'
 
 export default function Password() {
+
+    const {file, setFile} = useState( )
 
     const formik = useFormik({
         initialValues: {
@@ -23,13 +25,19 @@ export default function Password() {
         }
     })
 
+    /**formik doesn't support file upload so we need to create this handler */
+    const onUpload = async e => {
+        const base64 = '';
+        setFile(base64)
+    }
+
     return (
         <div className="container mx-auto">
 
             <Toaster position="top-center" reverseOrder={false}></Toaster>
 
             <div className="flex justify-center items-center h-screen">
-                <div className={styles.glass}>
+                <div className={styles.glass} style={{width: '45%'}}>
 
                     <div className="title flex flex-col items-center">
                         <h4 className="text-5xl font-bold">Register</h4>
