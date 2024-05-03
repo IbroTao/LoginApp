@@ -1,7 +1,7 @@
 import React from "react";
 import {Toaster} from "react-hot-toast"
 import {useFormik} from "formik"
-import {passwordValidate} from '../helpers/validate.js'
+import {resetPasswordValidation} from '../helpers/validate.js'
 
 import styles from '../styles/Username.module.css'
 
@@ -12,7 +12,7 @@ export default function Reset() {
             password: '',
             confirm_pwd: ''
         },
-        validate: passwordValidate,
+        validate: resetPasswordValidation,
         validateOnBlur: false,
         validateOnChange: false,
         onSubmit: async values => {
