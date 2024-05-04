@@ -1,13 +1,13 @@
-import UserModel from "../models/User.model"
+import Users from "../models/User.model.js"
 import bcrypt from "bcrypt"
 
 export async function register(req, res) {
     try {
-        const {username, password, profile, email, } = req.body;
+        const {username, password, profile, email } = req.body;
 
         // check the existing user
         const existUsername = new Promise((resolve, reject) => {
-            UserModel.findOne({ username }, function(err, user){
+            Users.findOne({ username }, function(err, user){
                 if(err) reject(new Error(err))
                 if(user) reject({error: "Please use unique Username"});
 
@@ -17,7 +17,7 @@ export async function register(req, res) {
 
         // check for existing email
         const existEmail = new Promise((resolve, reject) => {
-            UserModel.findOne({ email }, function(err, email){
+            Users.findOne({ email }, function(err, email){
                 if(err) reject(new Error(err))
                 if(email) reject({error: "Please use unique Email"});
 
@@ -31,7 +31,7 @@ export async function register(req, res) {
                     bcrypt.hash(password, 10)
                         .then(hashedPassword => {
 
-                            const user = new UserModel({
+                            const user = new Users({
                                 username,
                                 password: hashedPassword,  
                                 profile: profile || '',
@@ -41,7 +41,7 @@ export async function register(req, res) {
                             // return save result as a response
                             user.save()
                                 .then(result => res.status(201).send({ msg: "User Registered Successfully"}))
-                                .catch(error => res.status(500).send({error}))
+                                .catch(error => res.status(500).send({error: "Error occured"}))
 
                         }).catch(error => {
                                 return res.status(500).send({ error })
