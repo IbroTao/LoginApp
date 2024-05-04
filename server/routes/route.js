@@ -9,10 +9,12 @@ router.route('/authenticate').post();
 router.route('/login').post();
 
 /** GET Methods */
-
+router.route('/user/:username').get();
+router.route('/generateOTP').get();
+router.route('/verifyOTP').get();
+router.route('/createResetSession').get();
 
 /** PUT Methods */
-
-
+router.route()
 
 export default router;
