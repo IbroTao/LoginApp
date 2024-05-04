@@ -15,6 +15,8 @@ router.route('/verifyOTP').get();
 router.route('/createResetSession').get();
 
 /** PUT Methods */
-router.route()
+router.route('/updateUser').put();
+router.route('/resetPassword').put();
+
 
 export default router;
