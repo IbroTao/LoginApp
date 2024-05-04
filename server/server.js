@@ -29,4 +29,6 @@ connect().then(() => {
     catch(error){
         console.log('Cannot connect to the server')
     }
+}).catch(error=> {
+    console.log("Invalid database connection...!")
 })
