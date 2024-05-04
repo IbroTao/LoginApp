@@ -1,4 +1,5 @@
 import UserModel from "../models/User.model"
+import bcrypt from "bcrypt"
 
 export async function register(req, res) {
     try {
@@ -25,6 +26,15 @@ export async function register(req, res) {
         })
 
         Promise.all([existUsername, existEmail])
+            .then(() => {
+                if(password) {
+                    
+                }
+            }).catch(error => {
+                return res.status(500).send({
+                    error: "Unable to hash password"
+                })
+            })
 
     } catch (error) {
         return res.status(500).send(error);
