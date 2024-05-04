@@ -25,6 +25,12 @@ export async function  resetPasswordValidation(values) {
     return errors;  
 }
 
+/**validate register form */
+export async function registerValidation(values) {
+    const errors = usernameVerify({}, values);
+    passwordVerify(errors, values);
+}
+
 /**validate password */
 function passwordVerify(errors={}, values){
 
