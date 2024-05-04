@@ -24,7 +24,7 @@ const runApp = (port) => {
     startServer().then(
         res=>{
             app.listen(port);
-            console.log(`Server is running on PORT ${port}`);
+            console.log(`Server connected to http://localhost:${port}`);
         }
     ).catch(
         err=>{
