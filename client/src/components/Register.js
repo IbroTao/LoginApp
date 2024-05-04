@@ -4,7 +4,7 @@ import avatar from '../assets/profile.png'
 import {Toaster} from "react-hot-toast"
 import {useFormik} from "formik"
 import {passwordValidate} from '../helpers/validate.js'
-import convertToBase64 from "../helpers/convert"
+import convertToBase64 from "../helpers/convert.js"
 
 import styles from '../styles/Username.module.css'
 
@@ -22,24 +22,26 @@ export default function Register() {
         validateOnBlur: false,
         validateOnChange: false,
         onSubmit: async values => {
-            values =  await Object.assign(values, {profile: file})
+            values =  await Object.assign(values, {profile: file || ''})
             console.log(values)
         }
     })
 
     /**formik doesn't support file upload so we need to create this handler */
     const onUpload = async e => {
+        // console.log('File selected')
+        // const files = e.target.files[0];
         const base64 = await convertToBase64();
         setFile(base64)
     }
 
     return (
-        <div className="container mx-auto">
+        <div className="container mx-auto mb-8">
 
             <Toaster position="top-center" reverseOrder={false}></Toaster>
 
             <div className="flex justify-center items-center h-screen">
-                <div className={styles.glass} style={{width: '40%'}}>
+                <div className={styles.glass} style={{width: '45%'}}>
 
                     <div className="title flex flex-col items-center">
                         <h4 className="text-5xl font-bold">Register</h4>
@@ -50,7 +52,7 @@ export default function Register() {
 
                     <form className="py-1" onSubmit={formik.handleSubmit}>
                         <div className="profile flex justify-center py-4">
-                            <label htmlFor="">
+                            <label htmlFor="profile">
                                 <img src={file || avatar } className={styles.profile_img} alt="avatar"></img>
                             </label>
 

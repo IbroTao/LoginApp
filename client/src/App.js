@@ -37,7 +37,7 @@ const router =  createBrowserRouter([
         element: <Reset></Reset>
     },
     {
-        path: '*',
+        path: '*',  
         element: <PageNotFound></PageNotFound>
     },
 ])
