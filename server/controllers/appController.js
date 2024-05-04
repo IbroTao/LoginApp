@@ -3,61 +3,51 @@ import bcrypt from "bcrypt"
 
 export async function register(req, res) {
     try {
-        const {username, password, profile, email } = req.body;
+        const { username, password, profile, email } = req.body;
 
-        // check the existing user
-        const existUsername = new Promise((resolve, reject) => {
-            Users.findOne({ username }, function(err, user){
-                if(err) reject(new Error(err))
-                if(user) reject({error: "Please use unique Username"});
+        // Check if username already exists
+        const existingUsername = await Users.findOne({ username });
+        if (existingUsername) {
+            return res.status(400).send({ error: "Username already exists" });
+        }
 
-                resolve()
-            })
-        })
+        // Check if email already exists
+        const existingEmail = await Users.findOne({ email });
+        if (existingEmail) {
+            return res.status(400).send({ error: "Email already exists" });
+        }
 
-        // check for existing email
-        const existEmail = new Promise((resolve, reject) => {
-            Users.findOne({ email }, function(err, email){
-                if(err) reject(new Error(err))
-                if(email) reject({error: "Please use unique Email"});
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-                resolve()
-            })  
-        })
+        // Create a new user
+        const user = new Users({
+            username,
+            password: hashedPassword,
+            profile: profile || '',
+            email
+        });
 
-        Promise.all([existUsername, existEmail])
-            .then(() => {
-                if(password) {
-                    bcrypt.hash(password, 10)
-                        .then(hashedPassword => {
+        // Save the user to the database
+        await user.save();
 
-                            const user = new Users({
-                                username,
-                                password: hashedPassword,  
-                                profile: profile || '',
-                                email
-                            })
-
-                            // return save result as a response
-                            user.save()
-                                .then(result => res.status(201).send({ msg: "User Registered Successfully"}))
-                                .catch(error => res.status(500).send({error: "Error occured"}))
-
-                        }).catch(error => {
-                                return res.status(500).send({ error })
-                        })
-                }
-            }).catch(error => {
-                return res.status(500).send({error})
-            })
-
+        return res.status(201).send({ msg: "User Registered Successfully" });
     } catch (error) {
-        return res.status(500).send(error);
+        console.error("Error registering user:", error);
+        return res.status(500).send({error});
     }
 }
 
+
 export async function login(req, res) {
-    res.json("login route")
+
+    const {username, password} = req.body;
+
+    try{
+    }
+    catch(error){
+        return res.status(500).send({error})
+    } 
 }
 
 export async function getUser(req, res) {
