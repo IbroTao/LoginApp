@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
     res.status(200).json("HOME GET REQUEST")
 })
 
-/** start server */
+/** start server only when we have valid connection*/
 app.listen(port, () => {
     console.log(`Server connected to http://localhost:${port}`);
 })
