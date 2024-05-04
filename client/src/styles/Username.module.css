@@ -18,7 +18,7 @@
 }
 
 .btn{
-    @apply border bg-indigo-500 w-3/4 py-4 rounded-lg text-gray-50 text-xl shadow-sm text-center;
+    @apply border bg-indigo-500 w-3/4 py-3 rounded-lg text-gray-50 text-xl shadow-sm text-center;
 }
 
 .btn:hover{
