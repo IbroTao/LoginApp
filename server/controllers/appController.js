@@ -41,11 +41,10 @@ export async function register(req, res) {
                             // return save result as a response
                             user.save()
                                 .then(result => res.status(201).send({ msg: "User Registered Successfully"}))
+                                .catch(error => res.status(500).send({error}))
 
                         }).catch(error => {
-                                return res.status(500).send({
-                                    error: "Enable to hashed password"
-                                })
+                                return res.status(500).send({ error })
                         })
                 }
             }).catch(error => {
