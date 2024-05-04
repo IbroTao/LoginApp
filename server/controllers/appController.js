@@ -22,18 +22,23 @@ export async function register(req, res) {
                 if(email) reject({error: "Please use unique Email"});
 
                 resolve()
-            })
+            })  
         })
 
         Promise.all([existUsername, existEmail])
             .then(() => {
                 if(password) {
-                    
+                    bcrypt.hash(password, 10)
+                        .then(hashedPassword => {
+
+                        }).catch(error => {
+                                return res.status(500).send({
+                                    error: "Enable to hashed password"
+                                })
+                        })
                 }
             }).catch(error => {
-                return res.status(500).send({
-                    error: "Unable to hash password"
-                })
+                return res.status(500).send({error})
             })
 
     } catch (error) {
