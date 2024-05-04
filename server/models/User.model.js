@@ -17,5 +17,10 @@ export const UserSchema = new mongoose.Schema({
         unique: true 
     },
     firstName: {type: String},
-    lastName: {type: String}
+    lastName: {type: String},
+    mobile: {type: Number},
+    address: {type: String},
+    profile: {type: String}
 })
+
+export default mongoose.model.Users || mongoose.model('users', UserSchema)
