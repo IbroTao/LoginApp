@@ -31,6 +31,17 @@ export async function register(req, res) {
                     bcrypt.hash(password, 10)
                         .then(hashedPassword => {
 
+                            const user = new UserModel({
+                                username,
+                                password: hashedPassword,  
+                                profile: profile || '',
+                                email
+                            })
+
+                            // return save result as a response
+                            user.save()
+                                .then(result => res.status(201).send({ msg: "User Registered Successfully"}))
+
                         }).catch(error => {
                                 return res.status(500).send({
                                     error: "Enable to hashed password"
