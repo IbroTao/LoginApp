@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import avatar from '../assets/profile.png'
 import {Toaster} from "react-hot-toast"
 import {useFormik} from "formik"
-import {registerValidation} from '../helpers/validate.js'
+import {profileValidation} from '../helpers/validate.js'
 import convertToBase64 from "../helpers/convert.js"
 
 import styles from '../styles/Username.module.css'
@@ -20,7 +20,7 @@ export default function Profile() {
             email: '',
             address: '',
         },
-        validate: registerValidation,
+        validate: profileValidation,
         validateOnBlur: false,
         validateOnChange: false,
         onSubmit: async values => {
