@@ -44,6 +44,11 @@ export async function login(req, res) {
     const {username, password} = req.body;
 
     try{
+        const findUser = await Users.findOne({username});
+        if(!findUser) return res.status(404).send({error: "Username not Found"});
+
+        const comparePassword = await bcrypt.compare(password, findUser.password);
+        if(!comparePassword) return res.status(400).send({error: "Incorrect password"})
     }
     catch(error){
         return res.status(500).send({error})
