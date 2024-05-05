@@ -46,14 +46,17 @@ export async function login(req, res) {
 
     try{
         // check if username already exists
-        const findUser = await Users.findOne({username});
-        if(!findUser) return res.status(404).send({error: "Username not Found"});
+        const user = await Users.findOne({username});
+        if(!user) return res.status(404).send({error: "Username not Found"});
 
         // compare the inputted password and user password
-        const comparePassword = await bcrypt.compare(password, findUser.password);
+        const comparePassword = await bcrypt.compare(password, user.password);
         if(!comparePassword) return res.status(400).send({error: "Password does not match"});
 
-        jwt.sign()
+        jwt.sign({
+            userId: user._id,
+            username: user.username,
+        }, process.env.JWT_SECRET)
         
     }
     catch(error){
