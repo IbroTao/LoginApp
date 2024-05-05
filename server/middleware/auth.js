@@ -1,11 +1,15 @@
-
+import jwt from "jsonwebtoken";
 
 /** auth middleware */
 export default async function Auth(req, res, next) {
     try {
         
         // access authorize header to validate request
-        const token = req.headers.authorization;
+        const token = req.headers.authorization.split(" ")[1];
+
+        // retrieve the user details for the logged in user
+        const decodedToken = await jwt.verify(token, process.env.JWT_SECRET)
+
         res.json(token); 
         
     } catch (error) {
