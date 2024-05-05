@@ -2,6 +2,21 @@ import Users from "../models/User.model.js"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken";
 
+/** middleware to verify user */
+export async function verifyUser(req, res, next) {
+    try {
+        const {username} = req.method == "GET" ? req.query : req.body
+
+        // check if the user exists
+        let existUser = await Users.findOne({username});
+        if(!existUser) return res.status(404).send({error: "Cannot find User"});
+        next()
+    } catch (error) {
+        return res.status(404).send({error: "Authenticaton Error"})
+    }
+}
+
+
 export async function register(req, res) {
     try {
         const { username, password, profile, email } = req.body;
