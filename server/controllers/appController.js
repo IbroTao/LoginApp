@@ -106,26 +106,24 @@ export async function getUser(req, res) {
 };
 
 export async function updateUser(req, res) {
-        try {
+    try {
+        const {id} = req.params;
+        const {username, email, password, profile} = req.body;
 
-            const id = req.query.id;
+            // update the data
+            const user = await Users.findByIdAndUpdate( id, {username, email, password, profile}, {new: true});
+            if (!user) {
+                return res.status(400).json({ error: "Failed to update...!" });
+            } 
 
-            if(id){
-                const body = req.body;
+            res.status(200).json({message: "Record Updated...!", user})
 
-                // update the data
-                Users.updateOne({_id: id}, body, function(err, data){
-                    if(err) throw err;
 
-                    return res.status(201).json({msg: "Record Updated...!"})
-                })
-            } else {
-                return res.status(401)
-            }
-        } catch (error) {
-            return res.status(401).json({ error })
-        }
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
     }
+}
+
 
 export async function generateOTP(req, res) {
     res.json("generateOTP route")
