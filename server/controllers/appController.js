@@ -1,6 +1,7 @@
 import Users from "../models/User.model.js"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken";
+import otpGenerator from "otp-generator"
 
 /** middleware to verify user */
 export async function verifyUser(req, res, next) {
@@ -124,7 +125,7 @@ export async function updateUser(req, res) {
 
 
 export async function generateOTP(req, res) {
-    res.json("generateOTP route")
+    let OTP = await otpGenerator.generate(6, {lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false})
 }
 
 export async function verifyOTP(req, res) {
