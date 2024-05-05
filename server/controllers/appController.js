@@ -95,7 +95,9 @@ export async function getUser(req, res) {
         const user = await Users.findOne({username});
         if(!user) return res.status(501).send({error: "Could not find the user"});
 
-        const {password, ...rest} = user;
+        /** remove password from user */
+        // mongoose return unecessary data with object so convert it into json  
+        const {password, ...rest} = Object.assign({}, user.toJSON());
 
         return res.status(200).send(rest)
     } catch (error) {
@@ -104,7 +106,25 @@ export async function getUser(req, res) {
 };
 
 export async function updateUser(req, res) {
-    res.json("updateUser route")
+    const id = req.query.id;
+
+    if(id) {
+        const body = req.body;
+
+        // update the data 
+        Users.updateOne({ _id: id}, body, function(err, data) {
+            if(err) throw err;
+
+            return res.status(401).json({error: "User Not Found...!"})
+        });
+    } else{
+        return res.status(401).send({ error: "Record Updated!"})
+    }
+    try {
+        const user = await Users.findById(id)
+    } catch (error) {
+        return res.status(401).json({ error })
+    }
 }
 
 export async function generateOTP(req, res) {
