@@ -95,7 +95,9 @@ export async function getUser(req, res) {
         const user = await Users.findOne({username});
         if(!user) return res.status(501).send({error: "Could not find the user"});
 
-        return res.status(200).send(user)
+        const {password, ...rest} = user;
+
+        return res.status(200).send(rest)
     } catch (error) {
         return res.status(404).send({ error: "Cannot Find User Data"})
     }
