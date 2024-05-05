@@ -1,0 +1,8 @@
+{
+    "editor.fontFamily": " Space Mono, Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontVariations": false,
+    "scm.inputFontFamily": " Space Mono, Menlo, Monaco, 'Courier New', monospace",
+    "editor.inlayHints.fontFamily": " Space Mono, Menlo, Monaco, 'Courier New', monospace",
+    "notebook.output.fontFamily": " Space Mono, Menlo, Monaco, 'Courier New', monospace",
+    "terminal.integrated.fontFamily": " Space Mono, Menlo, Monaco, 'Courier New', monospace"
+}

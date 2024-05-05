@@ -1,5 +1,6 @@
 import Users from "../models/User.model.js"
 import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken";
 
 export async function register(req, res) {
     try {
@@ -44,11 +45,16 @@ export async function login(req, res) {
     const {username, password} = req.body;
 
     try{
+        // check if username already exists
         const findUser = await Users.findOne({username});
         if(!findUser) return res.status(404).send({error: "Username not Found"});
 
+        // compare the inputted password and user password
         const comparePassword = await bcrypt.compare(password, findUser.password);
-        if(!comparePassword) return res.status(400).send({error: "Incorrect password"})
+        if(!comparePassword) return res.status(400).send({error: "Password does not match"});
+
+        jwt.sign()
+        
     }
     catch(error){
         return res.status(500).send({error})
