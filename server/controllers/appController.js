@@ -117,8 +117,6 @@ export async function updateUser(req, res) {
             } 
 
             res.status(200).json({message: "Record Updated...!", user})
-
-
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }
