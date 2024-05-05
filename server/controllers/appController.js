@@ -106,25 +106,26 @@ export async function getUser(req, res) {
 };
 
 export async function updateUser(req, res) {
-    try {
-        const id = req.query.id;
+        try {
 
-        if(id) {
-            const body = req.body;
+            const id = req.query.id;
 
-        // update the data 
-            Users.updateOne({ _id: id}, body, function(err, data) {
-                if(err) throw err;
+            if(id){
+                const body = req.body;
 
-            return res.status(201).json({error: "Record Updated...!"})
-            });
-        } else{
-            return res.status(401).send({ msg: "User Not Found!"})
+                // update the data
+                Users.updateOne({_id: id}, body, function(err, data){
+                    if(err) throw err;
+
+                    return res.status(201).json({msg: "Record Updated...!"})
+                })
+            } else {
+                return res.status(401)
+            }
+        } catch (error) {
+            return res.status(401).json({ error })
         }
-    } catch (error) {
-        return res.status(401).json({ error })
     }
-}
 
 export async function generateOTP(req, res) {
     res.json("generateOTP route")
