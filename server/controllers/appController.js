@@ -53,10 +53,16 @@ export async function login(req, res) {
         const comparePassword = await bcrypt.compare(password, user.password);
         if(!comparePassword) return res.status(400).send({error: "Password does not match"});
 
-        jwt.sign({
+        const token = jwt.sign({
             userId: user._id,
             username: user.username,
-        }, process.env.JWT_SECRET)
+        }, process.env.JWT_SECRET, {expiresIn: "24h"})
+
+        return res.status(200).send({
+            msg: "Login Successful...!",
+            username: user.username,
+            token
+        })
         
     }
     catch(error){
