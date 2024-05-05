@@ -107,11 +107,11 @@ export async function getUser(req, res) {
 
 export async function updateUser(req, res) {
     try {
-        const {id} = req.params;
+        const {userId} = req.user;
         const {username, email, password, profile} = req.body;
 
             // update the data
-            const user = await Users.findByIdAndUpdate( id, {username, email, password, profile}, {new: true});
+            const user = await Users.findByIdAndUpdate( userId, {username, email, password, profile}, {new: true});
             if (!user) {
                 return res.status(400).json({ error: "Failed to update...!" });
             } 
