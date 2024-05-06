@@ -132,8 +132,8 @@ export async function generateOTP(req, res) {
 export async function verifyOTP(req, res) {
     const {code} = req.query;
     if(parseInt(req.app.locals.OTP) === parseInt(code)) {
-        req.app.local.OTP = null; // reset the OTP value
-        req.app.local.resetSession = true; // start session for reset password
+        req.app.locals.OTP = null; // reset the OTP value
+        req.app.locals.resetSession = true; // start session for reset password
 
         return res.status(201).send({ msg: "Verify Successfully!" });
     };
@@ -142,9 +142,30 @@ export async function verifyOTP(req, res) {
 };
 
 export async function createResetSession(req, res) {
-    res.json("createResetSession route")
+    if(req.app.locals.resetSession){
+        req.app.locals.resetSession = false // allow user access once
+
+        return res.status(200).json({msg: "access granted"})
+    }
+
+    return res.status(440).json({msg: "Session expired!"})
 };
 
 export async function resetPassword(req, res) {
-    res.json("resetPassword route")
+    try {
+        const {username, password} = req.body;
+        
+        const user = Users.findOne({username});
+        if(!user) return res.status(404).send({ error: "Username Not Found"});
+
+        const hashedPassword = bcrypt.hash(password, 10);
+        if(!hashedPassword) return res.status(500).send({error: "Unable to hash password"});
+
+        const updateUser = await Users.updateOne({username: user.username}, {password: hashedPassword});
+        if(!updateUser) return res.status(400).send({error: "Failed to update"});
+
+        
+    } catch (error) {
+        return res.status(401).send({ error })
+    }
 }
