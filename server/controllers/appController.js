@@ -164,6 +164,7 @@ export async function resetPassword(req, res) {
         const updateUser = await Users.updateOne({username: user.username}, {password: hashedPassword});
         if(!updateUser) return res.status(400).send({error: "Failed to update"});
 
+        return res.status(200).send({msg: "Record Updated...!"})
         
     } catch (error) {
         return res.status(401).send({ error })
