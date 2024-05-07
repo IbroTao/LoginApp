@@ -151,21 +151,23 @@ export async function createResetSession(req, res) {
     return res.status(440).json({msg: "Session expired!"})
 };
 
+
 export async function resetPassword(req, res) {
     try {
-        const {username, password} = req.body;
+        const { username, password } = req.body;
 
-        Users.findOne({username})
-            .then(user => {
-                bcrypt.hash(password, 10)
-                    .then(hashedPassword => {
-                        Users.updateOne({username: user.username}, {password: hashedPassword}, function(err, data){
-                            if(err) throw err;
-                            return res.status(200).send({ msg: "Record Updated...!"});
-                        })
-                    })
-            })
+        const user = await Users.findOne({ username });
+
+        if (!user) {
+            return res.status(404).send({ msg: "User not found" });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        await Users.updateOne({ username: user.username }, { password: hashedPassword });
+
+        return res.status(200).send({ msg: "Password reset successfully" });
     } catch (error) {
-        return res.status(401).send({ error })
+        return res.status(500).send({ error: error.message });
     }
 }
