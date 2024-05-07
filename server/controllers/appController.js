@@ -154,6 +154,7 @@ export async function createResetSession(req, res) {
 
 export async function resetPassword(req, res) {
     try {
+        if(!req.app.locals.resetPassword)  return res.status(440).send({error: "Session expired"})
         const { username, password } = req.body;
 
         const user = await Users.findOne({ username });
