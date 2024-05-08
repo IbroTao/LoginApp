@@ -14,4 +14,23 @@ let nodeConfig = {
     }
 };
 
-let transporter = nodemailer.createTransport(nodeConfig)
+let transporter = nodemailer.createTransport(nodeConfig);
+
+let MailGenerator = new MailGen({
+    theme: "default",
+    product: {
+        name: "Mailgen",
+        link: "https://mailgen.js"
+    }
+});
+
+export const registerMail = async (req, res) => {
+    const {username, userEmail, text, subject} = req.body;
+    
+    // body of the email
+    let email = {
+        body: {
+            
+        }
+    }
+}
