@@ -108,8 +108,8 @@ export async function getUser(req, res) {
 
 export async function updateUser(req, res) {
     try {
-        const {userId} = req.user;
-        const {username, email, password, profile} = req.body;
+         const {userId} = req.user;
+         const {username, email, password, profile} = req.body;
 
             // update the data
             const user = await Users.findByIdAndUpdate( userId, {username, email, password, profile}, {new: true});
@@ -167,6 +167,8 @@ export async function resetPassword(req, res) {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         await Users.updateOne({ username: user.username }, { password: hashedPassword });
+
+        req.app.locals.resetSession = false;
 
         return res.status(200).send({ msg: "Password reset successfully" });
     } catch (error) {
