@@ -12,4 +12,6 @@ let nodeConfig = {
         user: process.env.ETHERAL_USERNAME,
         pass: process.env.ETHERAL_PASSWORD
     }
-}
+};
+
+let transporter = nodemailer.createTransport(nodeConfig)
