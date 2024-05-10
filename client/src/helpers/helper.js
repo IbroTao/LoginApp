@@ -15,7 +15,7 @@ export async function authenticate(username) {
 /** get user details */
 export async function getUser({username}){
     try {
-        
+        await axios.get(`/api/user/${username}`)
     } catch (error) {
         return {error: "Password doesn't match"}
     }
