@@ -15,8 +15,18 @@ export async function authenticate(username) {
 /** get user details */
 export async function getUser({username}){
     try {
-        await axios.get(`/api/user/${username}`)
+        const {data} = await axios.get(`/api/user/${username}`);
+        return {data};
     } catch (error) {
         return {error: "Password doesn't match"}
+    }
+}
+
+/** register user function */
+export async function registerUser(credentials){
+    try {
+        
+    } catch (error) {
+        return Promise.reject({error})
     }
 }
