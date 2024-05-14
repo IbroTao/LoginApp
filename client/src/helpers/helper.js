@@ -39,3 +39,12 @@ export async function registerUser(credentials){
         return Promise.reject({error})
     }
 }
+
+/** login user function */
+export async function verifyPassword({username, password}) {
+    try {
+        
+    } catch (error) {
+        return Promise.reject({error: "Password"})
+    }
+}
