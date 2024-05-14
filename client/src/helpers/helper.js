@@ -51,3 +51,12 @@ export async function verifyPassword({username, password}) {
         return Promise.reject({error: "Password does not match..."})
     }
 }
+
+/** update user function */
+export async function updateUser(response){
+    try {
+        
+    } catch (error) {
+        return Promise.reject({error: "Couldn't Update Profile...!"})
+    }
+}
