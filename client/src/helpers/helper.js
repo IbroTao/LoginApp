@@ -31,7 +31,7 @@ export async function registerUser(credentials){
 
         /** send email */
         if(status === 201){
-            await axios.post('/api/registerMail')
+            await axios.post('/api/registerMail', {username, userEmail: email, text: msg})
         }
     } catch (error) {
         return Promise.reject({error})
