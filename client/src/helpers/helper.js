@@ -43,8 +43,10 @@ export async function registerUser(credentials){
 /** login user function */
 export async function verifyPassword({username, password}) {
     try {
-        
+        if(username){
+            await axios.post('/api/login', {username, password})
+        }
     } catch (error) {
-        return Promise.reject({error: "Password"})
+        return Promise.reject({error: "Password does not match..."})
     }
 }
