@@ -91,3 +91,12 @@ export async function verifyOTP({username, code}){
         return Promise.reject(error);
     }
 } 
+
+/** reset password */
+export async function resetPassword({username, password}){
+    try {
+        
+    } catch (error) {
+        return Promise.reject({error});
+    }
+}
