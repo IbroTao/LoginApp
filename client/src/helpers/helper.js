@@ -72,7 +72,8 @@ export async function generateOTP(username){
 
        // send mail with the OTP
        if(status === 201) {
-        await getUser({username})
+        let {data: {email}} = await getUser({username});
+        let text = `Your Password Recovery OTP is ${code}. Verify and recover your password.`
        }
     } catch (error) {
         return Promise.reject({error})
