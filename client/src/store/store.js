@@ -4,5 +4,5 @@ export const useAuthStore = create((set) => ({
     auth:{
         username: ''
     },
-    setUsername: ()
+    setUsername: (name) => set((state) => ({auth: {...state.auth}}))
 }))
