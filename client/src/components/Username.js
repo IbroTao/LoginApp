@@ -4,10 +4,13 @@ import avatar from '../assets/profile.png'
 import {Toaster} from "react-hot-toast"
 import {useFormik} from "formik"
 import { usernameValidate } from "../helpers/validate.js";
+import {useAuthStore} from '../store/store.js'
 
 import styles from '../styles/Username.module.css'
 
 export default function Username() {
+
+    useAuthStore()
 
     const formik = useFormik({
         initialValues: {
