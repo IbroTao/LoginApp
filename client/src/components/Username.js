@@ -10,7 +10,7 @@ import styles from '../styles/Username.module.css'
 
 export default function Username() {
 
-    useAuthStore()
+    useAuthStore(state => console.log(state))
 
     const formik = useFormik({
         initialValues: {
