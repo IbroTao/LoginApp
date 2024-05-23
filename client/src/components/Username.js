@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import avatar from '../assets/profile.png'
 import {Toaster} from "react-hot-toast"
@@ -11,6 +11,11 @@ import styles from '../styles/Username.module.css'
 export default function Username() {
 
     const setUsername = useAuthStore(state => console.log(state.auth.username));
+    const username = useAuthStore(state => state.setUsername);
+
+    useEffect(() => {
+        console.log(username)
+    })
 
     const formik = useFormik({
         initialValues: {
